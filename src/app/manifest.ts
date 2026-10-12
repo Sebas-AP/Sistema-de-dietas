@@ -1,0 +1,18 @@
+import type { MetadataRoute } from 'next'
+
+export default function manifest(): MetadataRoute.Manifest {
+  return {
+    name: 'Mi dieta semanal',
+    short_name: 'Mi dieta',
+    description: 'Organiza tus comidas, compras y preparación de la semana.',
+    start_url: '/',
+    display: 'standalone',
+    background_color: '#F8F8F2',
+    theme_color: '#174F3A',
+    lang: 'es-MX',
+    icons: [
+      { src: '/icons/app-icon-192.png', sizes: '192x192', type: 'image/png' },
+      { src: '/icons/app-icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+  }
+}
