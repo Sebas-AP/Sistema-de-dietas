@@ -1,1 +1,10 @@
-node_modules
+# Local secrets and environment-specific configuration
+.env
+.env.*
+!.env.example
+
+# Framework and tooling output
+.next/
+node_modules/
+playwright-report/
+test-results/
