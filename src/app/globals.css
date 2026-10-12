@@ -235,6 +235,27 @@ h2 {
 .pdf-attachment h3 { margin: 0 0 0.25rem; font-family: var(--display-font); font-size: 1.45rem; font-weight: 500; }
 .pdf-attachment p { max-width: 42ch; margin: 0; color: var(--muted); font-size: 0.86rem; }
 .pdf-attachment__selected { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.5rem; padding-top: 0.75rem; border-top: 1px solid #d8cfa8; font-size: 0.85rem; }
+.weekly-plan__import { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; margin: -0.15rem 0 1.4rem; }
+.weekly-plan__import p { margin: 0; color: var(--muted); font-size: 0.86rem; }
+.import-dialog__backdrop { position: fixed; inset: 0; z-index: 20; display: grid; place-items: center; padding: 1rem; background: rgb(15 39 29 / 75%); }
+.import-dialog { width: min(100%, 48rem); max-height: min(90dvh, 56rem); overflow: auto; border: 1px solid var(--line); border-radius: 0.5rem; background: var(--paper); box-shadow: 0 1rem 3rem rgb(0 0 0 / 20%); }
+.import-dialog__header { position: sticky; top: 0; z-index: 1; display: flex; align-items: start; justify-content: space-between; gap: 1rem; padding: 1.3rem 1.5rem; border-bottom: 1px solid var(--line); background: #fff; }
+.import-dialog__header h2 { font-size: clamp(1.6rem, 5vw, 2.2rem); }
+.import-dialog__content { display: grid; gap: 1rem; padding: 1.4rem 1.5rem 1.6rem; }
+.import-dialog__content > p { margin: 0; color: var(--muted); }
+.import-dialog__content h3 { margin: 0; font-family: var(--display-font); font-size: 1.5rem; font-weight: 500; }
+.import-dialog__filename { overflow-wrap: anywhere; }
+.import-dialog__consent { display: flex; align-items: start; gap: 0.65rem; padding: 0.9rem; border: 1px solid var(--line); background: #fff; cursor: pointer; }
+.import-dialog__consent input { flex: none; width: 1.25rem; height: 1.25rem; margin: 0.1rem 0 0; accent-color: var(--leaf); }
+.import-dialog__actions { display: flex; gap: 0.7rem; padding-top: 0.2rem; }
+.import-dialog__actions .button { width: 100%; }
+.import-dialog__warnings { padding: 0.8rem 1rem; border-left: 4px solid #ae7722; background: var(--corn); font-size: 0.9rem; }
+.import-dialog__warnings ul { margin: 0.3rem 0 0; padding-left: 1.2rem; }
+.import-dialog__days { display: grid; gap: 0.9rem; }
+.import-dialog__day { padding: 1rem; border: 1px solid var(--line); background: #fff; }
+.import-dialog__day h4 { margin: 0 0 0.75rem; color: var(--leaf); font-family: var(--display-font); font-size: 1.35rem; font-weight: 500; text-transform: capitalize; }
+.import-dialog__meal { display: grid; gap: 0.7rem; padding: 0.8rem; background: #f4f7ee; }
+.import-dialog__meal + .import-dialog__meal { margin-top: 0.7rem; }
 
 .weekly-plan__days { display: grid; gap: 0.9rem; }
 .week-day { padding: 1.1rem; border: 1px solid var(--line); border-left: 4px solid var(--leaf); background: #fff; }

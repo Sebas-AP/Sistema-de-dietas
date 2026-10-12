@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import type { DietPlan, Meal } from '../domain/types'
 import { useDietStore } from '../state/diet-store'
 import { MealForm, MEAL_SLOTS } from './meal-form'
+import { ImportDietDialog } from './import-diet-dialog'
 import { PdfAttachment } from './pdf-attachment'
 import { isCalendarDate, rebaseWeek, safeWeekStart, weekDates } from './week-dates'
 
@@ -33,13 +34,23 @@ function saveMeal(current: DietPlan, start: string, date: string, meal: Meal): D
 export function WeeklyPlan() {
   const { plan, replacePlan, isHydrated } = useDietStore()
   const [editor, setEditor] = useState<{ date: string; meal?: Meal } | null>(null)
+  const [importOpen, setImportOpen] = useState(false)
   const [waterDraft, setWaterDraft] = useState(plan.waterGoalLiters?.toString() ?? '')
+  const importTriggerRef = useRef<HTMLButtonElement>(null)
+  const importWasOpenRef = useRef(false)
   const returnFocusRef = useRef<HTMLElement | null>(null)
   const dayHeadingRefs = useRef(new Map<string, HTMLHeadingElement>())
   const pendingFocusRef = useRef<{ date: string; useHeading: boolean } | null>(null)
   const start = safeWeekStart(plan.startsOn)
   const dates = weekDates(start)
   useEffect(() => setWaterDraft(plan.waterGoalLiters?.toString() ?? ''), [plan.waterGoalLiters])
+  useEffect(() => {
+    if (importOpen) importWasOpenRef.current = true
+    else if (importWasOpenRef.current) {
+      importWasOpenRef.current = false
+      importTriggerRef.current?.focus()
+    }
+  }, [importOpen])
   useEffect(() => {
     if (isHydrated && !isCalendarDate(plan.startsOn)) {
       replacePlan((current) => isCalendarDate(current.startsOn) ? current : rebaseWeek(current, start, start))
@@ -106,6 +117,11 @@ export function WeeklyPlan() {
         </div>
       </div>
       <PdfAttachment value={plan.attachment} onChange={(descriptor) => replacePlan((current) => ({ ...current, attachment: descriptor ?? undefined }))} />
+      <div className="weekly-plan__import">
+        <button ref={importTriggerRef} type="button" className="button button--quiet" onClick={() => setImportOpen(true)}>Importar desde PDF</button>
+        <p>Extrae un menú del PDF y revísalo antes de cambiar tu plan.</p>
+      </div>
+      {importOpen && <ImportDietDialog onClose={() => setImportOpen(false)} />}
       <div className="weekly-plan__days">
         {dates.map((date) => {
           const label = dateLabel(date)

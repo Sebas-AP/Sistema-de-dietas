@@ -82,4 +82,15 @@ describe('WeeklyPlan', () => {
     await userEvent.click(within(monday).getByRole('button', { name: 'Eliminar Avena' }))
     await waitFor(() => expect(within(monday).getByRole('heading', { name: /lunes 12 de octubre/i })).toHaveFocus())
   })
+
+  it('opens import from the reference area and restores focus after cancellation', async () => {
+    render(<DietProvider repository={repository}><WeeklyPlan /></DietProvider>)
+    const trigger = await screen.findByRole('button', { name: 'Importar desde PDF' })
+    await userEvent.click(trigger)
+    expect(screen.getByRole('dialog', { name: 'Importar desde PDF' })).toBeVisible()
+    await userEvent.click(screen.getByRole('button', { name: 'Cancelar importación' }))
+    expect(screen.queryByRole('dialog')).not.toBeInTheDocument()
+    expect(trigger).toHaveFocus()
+    expect(repository.load()).toEqual(basePlan)
+  })
 })
